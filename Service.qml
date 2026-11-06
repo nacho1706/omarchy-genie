@@ -35,6 +35,9 @@ Item {
         return true
     }
     function showSettings() { var windows = screens.instances; for (var i = 0; i < windows.length; ++i) if (windows[i].monitor && windows[i].monitor === Hyprland.focusedMonitor) windows[i].settingsOpen = true }
+    readonly property bool appsOpened: nativeDock.appsOpened
+    function openApps() { nativeDock.openApps() }
+    function closeApps() { nativeDock.closeApps() }
     function dockTarget(screen, address) {
         var window = nativeDock.dockOn(screen)
         return window ? window.genieTarget(address) : null
@@ -141,7 +144,7 @@ Item {
     Connections { target: Hyprland; function onRawEvent(event) { if (event.name === "activewindowv2") root.refresh() } }
     ShellIpc {
         target: "chato.genie"
-        function status(): string { return JSON.stringify({duration: root.duration, intensity: root.intensity, position: root.position, target: root.lastTarget, animation: root.lastAnimation, error: root.error, busy: root.busy}) }
+        function status(): string { return JSON.stringify({duration: root.duration, intensity: root.intensity, position: root.position, target: root.lastTarget, animation: root.lastAnimation, error: root.error, busy: root.busy, launcherReady: !!dockFacade.appLibrary, appsOpened: root.appsOpened, appCount: dockFacade.appLibrary ? dockFacade.appLibrary.sortedEntries("").length : 0}) }
         function configure(json: string): void {
             try {
                 var input = JSON.parse(json), next = Object.assign({}, root.settings)

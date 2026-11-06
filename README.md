@@ -43,7 +43,7 @@ omarchy plugin add https://github.com/nacho1706/omarchy-genie.git --enable
 omarchy plugin install https://github.com/nacho1706/omarchy-genie.git --enable
 ```
 
-Run **one** of those commands, not both. Omarchy clones and validates the repository and enables its service. Review the code when prompted.
+Run **one** of those commands, not both. Omarchy clones and validates the repository and enables its background service and app-menu integration. Review the code when prompted.
 
 ### Required: connect the window titlebar buttons
 
@@ -165,7 +165,7 @@ omarchy plugin list
 hyprctl configerrors
 ```
 
-`status` includes the most recent animation direction, whether it ran, its fallback reason when applicable, and the actual dock icon rectangle.
+`status` reports application-launch capability and the number of available apps, along with the most recent animation direction, whether it ran, its fallback reason when applicable, and the actual dock icon rectangle.
 
 - **The − button uses the old effect:** rerun the installer, then restart the shell. A terminal's `PATH` can differ from the command path inside Hyprland; copying a wrapper alone is insufficient.
 - **Nothing happens:** check that the window is floating, not in true fullscreen or pinned, and that its workspace uses Omarchy's floating mode.

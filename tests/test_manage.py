@@ -33,7 +33,7 @@ class MigrationTests(unittest.TestCase):
             bindings = Path(tmp) / "bindings.lua"
             bindings.write_text(m.START + "\n" + m.END)
             wrapper = Path(tmp) / "bin/omarchy-hyprland-window-minimize"
-            catalog = json.dumps([{"id":"chato.genie", "kinds":["service"]}])
+            catalog = json.dumps([{"id":"chato.genie", "kinds":["service","menu"]}])
             with patch.multiple(m, ROOT=root, DEST=root, BINDINGS=bindings, WRAPPER=wrapper), patch.object(m,"call") as call, patch.object(m,"migrate_service_settings"), patch.object(m,"edit_bindings"), patch.object(m.subprocess,"check_output",return_value=catalog), contextlib.redirect_stdout(io.StringIO()):
                 m.main("install")
             self.assertTrue(wrapper.exists())

@@ -221,6 +221,10 @@ Item {
     for (var i = 0; i < windows.length; i++) windows[i].toplevel.close()
   }
 
+  readonly property bool appsOpened: appGrid.opened
+
+  function closeApps() { appGrid.close() }
+
   function openApps() {
     appGrid.open()
   }

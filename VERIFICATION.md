@@ -84,3 +84,14 @@ fullscreen. Thirteen tests pass. A real pointer click on a maximized test
 window's minus button minimized it with Genie. Clicking its actual dock icon
 restored it to workspace 4, still maximized at 1920x1020. The cursor did not
 move during restoration.
+
+## 0.2.4 — launching closed applications from the dock
+
+The dock's appLibrary was null because the shell grants that capability only
+to plugins declaring a menu entry point. Restoring existing windows worked,
+but launching closed apps and populating the app grid did not.
+
+Declared the existing app grid as a menu, forwarding its lifecycle to the
+persistent service. Verified runtime launcherReady=true and 87 available
+application entries. A real pointer click on the closed calculator's dock
+icon opened a new Omacalc window (none existed before the click).

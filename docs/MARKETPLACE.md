@@ -29,7 +29,7 @@ omarchy restart shell
 
 - Baseline: Omarchy 4.5.0-3, Hyprland 0.56.2.
 - Root `manifest.json` validates with `omarchy plugin validate .`.
-- Service-only plugin extending an attributed copy of the Omarchy dock.
+- Background service plus an application-menu entry point, extending an attributed copy of the Omarchy dock. The menu kind grants the shell application-library capability needed to launch closed apps; no top-bar widget is added.
 - No runtime network access, sudo, native plugin compilation, or downloaded executables.
 - **Additional local setup is required** for the default keyboard and titlebar integration. Marketplace installation does not execute the installer; users must explicitly run `python3 tools/manage.py install`, then restart the shell.
 - The installer changes user configuration only, with backups. It disables the stock dock to avoid duplicates; uninstall restores it and brings back managed hidden windows.

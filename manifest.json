@@ -2,14 +2,16 @@
   "schemaVersion": 1,
   "id": "chato.genie",
   "name": "Genie",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "author": "chato",
   "description": "Genie-style titlebar minimize and restore integrated with the Omarchy dock.",
   "kinds": [
-    "service"
+    "service",
+    "menu"
   ],
   "entryPoints": {
-    "service": "Service.qml"
+    "service": "Service.qml",
+    "menu": "Menu.qml"
   },
   "omarchy": {
     "clonedFrom": "omarchy.dock"

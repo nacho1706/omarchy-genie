@@ -77,14 +77,14 @@ def main(action):
         # copy a file onto itself. Empty, unused folders are not tracked by Git.
         if ROOT.resolve() != DEST.resolve():
             DEST.mkdir(parents=True, exist_ok=True)
-            for filename in ("manifest.json", "Service.qml", "GenieScreen.qml", "README.md", "LICENSE", "THIRD_PARTY_NOTICES.md"):
+            for filename in ("manifest.json", "Service.qml", "GenieScreen.qml", "Menu.qml", "README.md", "LICENSE", "THIRD_PARTY_NOTICES.md"):
                 shutil.copy2(ROOT / filename, DEST / filename)
             for directory in ("tools", "shaders", "dock"):
                 shutil.copytree(ROOT / directory, DEST / directory, dirs_exist_ok=True, ignore=shutil.ignore_patterns("__pycache__"))
         call("omarchy-shell", "shell", "rescanPlugins")
         for attempt in range(40):
             catalog = subprocess.check_output(["omarchy-plugin-catalog"], text=True)
-            if any(p.get("id") == "chato.genie" and p.get("kinds") == ["service"] for p in json.loads(catalog)):
+            if any(p.get("id") == "chato.genie" and set(p.get("kinds", [])) == {"service", "menu"} for p in json.loads(catalog)):
                 break
             time.sleep(0.1)
         call("omarchy", "plugin", "enable", "chato.genie")
