@@ -30,6 +30,38 @@ The tested versions above are the compatibility baseline, not a guarantee for ev
 
 ## Install
 
+Use Omarchy's plugin manager:
+
+```sh
+omarchy plugin add https://github.com/nacho1706/omarchy-genie.git --enable
+```
+
+`omarchy plugin install` is an alias for `omarchy plugin add`; this is equivalent:
+
+```sh
+omarchy plugin install https://github.com/nacho1706/omarchy-genie.git --enable
+```
+
+Run **one** of those commands, not both. Omarchy clones and validates the repository and enables its service. Review the code when prompted.
+
+### Required: connect the window titlebar buttons
+
+**The plugin manager does not run custom setup scripts.** After adding the plugin (including through the marketplace), run this once:
+
+```sh
+cd ~/.config/omarchy/plugins/chato.genie
+python3 tools/manage.py install
+omarchy restart shell
+```
+
+This additional step connects the window's **− button** and **Super+M** to Genie. Without it, enabling the shell service alone does not replace Omarchy's minimization command. Do not run setup with `sudo`.
+
+Already installed? Do not run `plugin add` again: use the update instructions below. The setup supports running directly from the installed plugin directory without modifying its Git checkout.
+
+### Alternative: install from a development checkout
+
+If you want a separate source checkout instead of an installation managed by Omarchy:
+
 ```sh
 git clone https://github.com/nacho1706/omarchy-genie.git
 cd omarchy-genie
@@ -37,19 +69,7 @@ python3 tools/manage.py install
 omarchy restart shell
 ```
 
-Do not run the installer with `sudo`.
-
-### If you installed through the marketplace
-
-**Cloning/enabling the plugin alone does not connect the window titlebar buttons.** Run the additional local setup once:
-
-```sh
-cd "${XDG_CONFIG_HOME:-$HOME/.config}/omarchy/plugins/chato.genie"
-python3 tools/manage.py install
-omarchy restart shell
-```
-
-The installer supports running directly from the installed plugin directory.
+This copies the plugin files without their Git history. Use the development-checkout update instructions for this method.
 
 ### What installation changes
 
@@ -93,9 +113,21 @@ Settings persist in the `chato.genie` service entry in `shell.json`.
 
 ## Update
 
-From your original checkout:
+If you installed with `omarchy plugin add` / `install` or through the marketplace:
 
 ```sh
+omarchy plugin update chato.genie
+cd ~/.config/omarchy/plugins/chato.genie
+python3 tools/manage.py install
+omarchy restart shell
+```
+
+The plugin manager updates the Git-managed checkout. Running setup again refreshes the keyboard/titlebar integration and retains animation settings.
+
+If you installed from a separate development checkout instead, update that original checkout:
+
+```sh
+cd /path/to/omarchy-genie
 git pull --ff-only
 python3 tools/manage.py install
 omarchy restart shell
@@ -113,6 +145,8 @@ omarchy restart shell
 ```
 
 The uninstaller restores hidden Genie windows, enables the stock Omarchy dock, removes the marked shortcut block and Genie-owned wrapper, and removes the installed plugin. Backups and unrelated configuration remain in place.
+
+Omarchy also provides `omarchy plugin remove chato.genie`, but that command alone does not undo this plugin's additional keyboard/titlebar setup. Use the custom uninstaller above for complete removal.
 
 **Restore windows before manually deleting or disabling the plugin.** If the shell is unavailable, run this repeatedly until all Genie windows are back:
 

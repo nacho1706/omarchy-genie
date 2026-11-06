@@ -14,6 +14,17 @@ Suggested description:
 
 > Genie-style minimize and restore for Omarchy floating windows. Windows contract into their actual application icons in the Omarchy dock, with configurable duration and intensity. Runs as a Quickshell service without adding a second dock or top-bar widget.
 
+## Installation command
+
+```sh
+omarchy plugin add https://github.com/nacho1706/omarchy-genie.git --enable
+cd ~/.config/omarchy/plugins/chato.genie
+python3 tools/manage.py install
+omarchy restart shell
+```
+
+`omarchy plugin install` is an alias for `omarchy plugin add`. The additional setup step is required for the titlebar buttons, whether installed by CLI or marketplace.
+
 ## Reviewer notes
 
 - Baseline: Omarchy 4.5.0-3, Hyprland 0.56.2.
