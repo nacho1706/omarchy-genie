@@ -1,0 +1,11 @@
+#!/bin/sh
+# Installed in ~/.local/bin: handles Omarchy's keyboard and titlebar routes.
+# Fall back to the packaged minimizer when the effect service is unavailable.
+if [ "$#" -gt 0 ]; then
+    result=$(omarchy-shell chato.genie minimizeAddress "$1" 2>/dev/null) || exec /usr/bin/omarchy-hyprland-window-minimize "$@"
+else
+    result=$(omarchy-shell chato.genie minimize 2>/dev/null) || exec /usr/bin/omarchy-hyprland-window-minimize "$@"
+fi
+case "$result" in
+    *"not found"*|*"unknown"*) exec /usr/bin/omarchy-hyprland-window-minimize "$@" ;;
+esac
