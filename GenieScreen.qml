@@ -42,7 +42,7 @@ Item {
     }
     function minimize(c) {
         if (capturing || motion.running || controller.completion) return
-        if (!c.floating || c.fullscreen || c.workspace.id < 1) return
+        if (!c.floating || c.fullscreen >= 2 || c.workspace.id < 1) return
         pending = c
         var top = Hyprland.toplevels.values.find(function(t) { return ("0x" + String(t.address).replace(/^0x/, "")) === c.address })
         if (!top || !top.wayland) { finishCapture(null); return }

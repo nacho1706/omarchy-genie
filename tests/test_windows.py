@@ -21,6 +21,19 @@ class AdapterTests(unittest.TestCase):
             w.main("minimize", "0xab")
         d.assert_not_called()
 
+    def test_maximized_floating_window_can_be_minimized(self):
+        c = self.client(); c["fullscreen"] = 1
+        with patch.object(w, "query", return_value=[c]), patch.object(w, "run", return_value="floating"), patch.object(w, "dispatch") as d:
+            w.main("minimize", "0xab")
+        self.assertTrue(any('workspace = "special:minimized"' in call.args[0] for call in d.call_args_list))
+
+    def test_true_fullscreen_window_is_still_excluded(self):
+        for mode in (2, 3):
+            c = self.client(); c["fullscreen"] = mode
+            with self.subTest(mode=mode), patch.object(w, "query", return_value=[c]), patch.object(w, "dispatch") as d, self.assertRaises(ValueError):
+                w.main("minimize", "0xab")
+            d.assert_not_called()
+
     def test_minimize_records_recovery_before_moving(self):
         c = self.client(); c["tags"] = ["genie-workspace-9", "genie-order-1"]
         with patch.object(w,"query",return_value=[c]), patch.object(w,"run",return_value="floating"), patch.object(w,"dispatch") as d:

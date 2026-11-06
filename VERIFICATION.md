@@ -72,3 +72,15 @@ previous `cursor.no_warps` value even if the dispatch raises a Lua error.
 The same restore path then preserved (1268, 1048) exactly, kept the test window
 focused for keyboard input, and left the global option false as before.
 Eleven regression tests pass. Marketplace submission remains pending.
+
+## 0.2.3 — maximized floating windows
+
+Reproduced rejection of maximized windows: Hyprland reports maximized as
+`fullscreen=1`, which the QML entry and adapter incorrectly rejected as true
+fullscreen. Both now reject only modes 2 and 3.
+
+Added regression coverage for accepting mode 1 and still excluding true
+fullscreen. Thirteen tests pass. A real pointer click on a maximized test
+window's minus button minimized it with Genie. Clicking its actual dock icon
+restored it to workspace 4, still maximized at 1920x1020. The cursor did not
+move during restoration.

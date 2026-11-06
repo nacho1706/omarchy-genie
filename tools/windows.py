@@ -64,7 +64,7 @@ def main(action, address=""):
     target = 'window = "address:' + address + '"'
     if action == "minimize":
         ws = c["workspace"]["id"]
-        if not c.get("floating") or ws < 1 or c.get("fullscreen", 0) or c.get("pinned", False):
+        if not c.get("floating") or ws < 1 or c.get("fullscreen", 0) >= 2 or c.get("pinned", False):
             raise ValueError("Only non-fullscreen floating windows can be minimized")
         if run("omarchy-hyprland-workspace-layout-current", str(ws)) != "floating":
             raise ValueError("Workspace must use Omarchy's floating mode")

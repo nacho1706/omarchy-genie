@@ -11,6 +11,7 @@ Press the **− button in a window's titlebar** or **Super+M**: the window bends
 - Uses the actual dock icon position, including theme scale and app ordering.
 - Keeps Omarchy's dock appearance, pinned apps, application grid, menus, and dragging.
 - Adds no extra dock or button to the top bar.
+- Supports normal and maximized floating windows (true fullscreen is excluded).
 - Supports configurable duration and intensity, and respects Omarchy's global animation toggle.
 - Restores windows to their original workspace without moving the mouse pointer.
 - Keeps the restored window ready for keyboard input.
@@ -167,7 +168,7 @@ hyprctl configerrors
 `status` includes the most recent animation direction, whether it ran, its fallback reason when applicable, and the actual dock icon rectangle.
 
 - **The − button uses the old effect:** rerun the installer, then restart the shell. A terminal's `PATH` can differ from the command path inside Hyprland; copying a wrapper alone is insufficient.
-- **Nothing happens:** check that the window is floating, not fullscreen or pinned, and that its workspace uses Omarchy's floating mode.
+- **Nothing happens:** check that the window is floating, not in true fullscreen or pinned, and that its workspace uses Omarchy's floating mode.
 - **A window restores without an effect after restarting the shell:** its snapshot is no longer available; restoration still works.
 - **Two docks appear:** check that `chato.genie` is enabled and `omarchy.dock` is disabled. The installer sets this up.
 
