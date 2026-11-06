@@ -12,7 +12,8 @@ Press the **− button in a window's titlebar** or **Super+M**: the window bends
 - Keeps Omarchy's dock appearance, pinned apps, application grid, menus, and dragging.
 - Adds no extra dock or button to the top bar.
 - Supports configurable duration and intensity, and respects Omarchy's global animation toggle.
-- Restores windows to their original workspace.
+- Restores windows to their original workspace without moving the mouse pointer.
+- Keeps the restored window ready for keyboard input.
 - Starts automatically with the Omarchy shell after installation.
 - Requires no native Hyprland plugin, compilation, sudo, or network access at runtime.
 

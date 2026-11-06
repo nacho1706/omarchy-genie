@@ -58,6 +58,14 @@ class AdapterTests(unittest.TestCase):
             w.main("minimize", "0xab")
         self.assertFalse(any("set_prop" in call.args[0] for call in d.call_args_list))
 
+    def test_restore_keeps_pointer_stationary_during_move_and_focus(self):
+        c = self.client(); c["tags"] = ["genie-workspace-3"]
+        with patch.object(w, "query", return_value=[c]), patch.object(w, "dispatch") as d:
+            w.main("restore", "0xab")
+        relevant = [call for call in d.call_args_list if "window.move" in call.args[0] or "hl.dsp.focus" in call.args[0]]
+        self.assertEqual(len(relevant), 3)
+        self.assertTrue(all(call.kwargs.get("preserve_pointer") for call in relevant))
+
     def test_restore_last_uses_order_not_client_list(self):
         first = self.client(); first["tags"] = ["genie-workspace-3", "genie-order-20"]; first["workspace"]["name"] = "special:minimized"
         second = dict(first,address="0xcd",tags=["genie-workspace-3","genie-order-10"])

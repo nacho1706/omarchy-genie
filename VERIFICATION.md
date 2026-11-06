@@ -61,3 +61,14 @@ recovery tags, with restoration through the dock between them.
 Removed the bar-widget kind and entry point. Migrated settings into the plugins
 service list while removing all Genie entries from bar sections. The manifest
 validates as service-only and `hyprctl configerrors` is empty.
+
+## Pointer preservation
+
+Reproduced pointer movement when restoring through the dock: cursor position
+changed from (1282, 1048) to (1407, 93). Move/focus dispatches now temporarily
+suppress cursor warping within a synchronous compositor request, restoring the
+previous `cursor.no_warps` value even if the dispatch raises a Lua error.
+
+The same restore path then preserved (1268, 1048) exactly, kept the test window
+focused for keyboard input, and left the global option false as before.
+Eleven regression tests pass. Marketplace submission remains pending.
